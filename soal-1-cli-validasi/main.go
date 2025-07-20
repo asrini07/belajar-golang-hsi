@@ -13,40 +13,42 @@ import (
 func main() {
 	reader := bufio.NewReader(os.Stdin)
 
-
 	fmt.Print("Masukkan nama Anda: ")
-	nama, _ := reader.ReadString('\n')
+	nama, err := reader.ReadString('\n')
 	nama = strings.TrimSpace(nama)
-	fmt.Print("Masukkan umur Anda: ")
-	age, _ := reader.ReadString('\n')
-	age = strings.TrimSpace(age)
 
-	umur, err := strconv.Atoi(age)
+	if nama == "" {
+		msgError := "Error: nama harus diisi"
+		log.Error(msgError)
+		fmt.Println(msgError)
+		return
+	}
+
+	fmt.Print("Masukkan umur Anda: ")
+	inputUmur, err := reader.ReadString('\n')
 	if err != nil {
-		msgErr := "Input tidak valid!"
-		fmt.Println(msgErr)
-		log.WithError(err).Error(msgErr)
+		log.Errorf("Gagal membaca umur: %v", err)
+		return
+	}
+	inputUmur = strings.TrimSpace(inputUmur)
+
+	umur, err := strconv.Atoi(inputUmur)
+	if err != nil {
+		msgError := "Error: input umur harus berupa angka"
+		log.Error(msgError)
+		fmt.Println(msgError)
 		return
 	}
 
 	if umur < 18 {
-		fmt.Printf("Nama: %d\n", nama)
-		fmt.Printf("Umur: %d\n", umur)
-		msgErr := "Error: umur tidak valid (minimal 18 tahun)"
-		fmt.Printf(msgErr)
-		log.WithError(err).Error(msgErr)
+		msgError := "Error: umur tidak valid (minimal 18 tahun)"
+		log.Error(msgError)
+		fmt.Println(msgError)
 		return
 	}
 
-	if nama == "" {
-		msgErr := "Error: nama harus diisi"
-        fmt.Printf(msgErr)
-	    log.WithError(err).Error(msgErr)
-		return
-    }
-
 	infoSuccess(nama, umur)
-
+	
 }
 
 func infoSuccess(nama string, umur int) {
