@@ -27,7 +27,7 @@ func main() {
 
 	fmt.Println("########################")
 	fmt.Println("Versi Package:", mahasiswa.Versi)
-    fmt.Println("Nilai Maksimum:", mahasiswa.GetMaxNilai())
+	fmt.Println("Nilai Maksimum:", mahasiswa.GetMaxNilai())
 	fmt.Println("Total Umur Mahasiswa:", totalUmur)
 
 }
