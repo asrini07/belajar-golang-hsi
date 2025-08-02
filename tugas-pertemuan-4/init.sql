@@ -1,0 +1,2 @@
+-- Kosong karena GORM akan melakukan auto migration
+-- Tapi bisa diisi dummy data jika ingin pre-populate mahasiswa
